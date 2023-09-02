@@ -564,7 +564,7 @@ p {
 @media (min-width: 992px) {
     .apg-modal-dailog {
         max-width: 900px;
-        max-height: 612px;
+        max-height: 550px;
     }
 }
 
@@ -798,12 +798,14 @@ p {
 }
 
 .apg-header__ar-inner {
+    margin: 0 40px;
 }
 
 .apg-header__ar-info {
     line-height: 1;
     /*margin-right: 20px;*/
     font-weight: 400;
+    text-align: center;
 }
 
 

@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const root = document.documentElement;
     const goToTopbtn = document.querySelector("#goToTopbtn");
     const parallaxContainer = document.querySelector(".apg-parallax-container");
+    const overlay = document.querySelector(".apg-modal-overlay");
     
 
     if(goToTopbtn) {
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //console.log(isMobileTablet());
     const modalShowBtns = document.querySelectorAll(".apg-modal-show-btn");
     const modalHideBtns = document.querySelectorAll(".apg-modal-hide-btn");
+    const modals = document.querySelectorAll(".apg-modal");
     if(modalShowBtns) {
         modalShowBtns.forEach( (btn) => {
             btn.addEventListener("click" , () => {
@@ -43,13 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const modal = document.getElementById(modalId);
                 if(modal){
                     modal.classList.add("apg-modal_show");
+                    if(overlay) {
+                        overlay.style.display = "block";
+                    }
+                    document.body.classList.add("apg-body_show-popup");
                 }
-                const overlay = document.querySelector(".apg-modal-overlay");
-                if(overlay) {
-                    overlay.style.display = "block";
-                }
-                document.body.classList.add("apg-body_show-popup");
-
             });
         })
     }
@@ -65,13 +65,28 @@ document.addEventListener('DOMContentLoaded', () => {
   
                 if(modal){
                     modal.classList.remove("apg-modal_show");
+                    if(overlay) {
+                        overlay.style.display = "none";
+                    }
+                    document.body.classList.remove("apg-body_show-popup");
                 }
-                const overlay = document.querySelector(".apg-modal-overlay");
-                if(overlay) {
-                    overlay.style.display = "none";
-                }
-                document.body.classList.remove("apg-body_show-popup");
 
+            });
+        })
+    }
+
+    if(modals) {
+        modals.forEach( (modal) => {
+            modal.addEventListener("click" , (event) => {
+                const dialog = modal.querySelector(".apg-modal-dailog")
+                const isClickInside = dialog.contains( event.target );
+                if(!isClickInside) {
+                    modal.classList.remove("apg-modal_show");
+                    if(overlay) {
+                        overlay.style.display = "none";
+                    }
+                    document.body.classList.remove("apg-body_show-popup");
+                }
             });
         })
     }
